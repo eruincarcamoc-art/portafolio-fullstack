@@ -1,0 +1,29 @@
+name: Release · cronwise
+# Se publica al crear una etiqueta  cronwise-vX.Y.Z  (requiere el secreto NPM_TOKEN).
+on:
+  push:
+    tags: ['cronwise-v*']
+
+permissions:
+  contents: read
+  id-token: write   # necesario para la "provenance" de npm (el paquete queda firmado y enlazado a este commit)
+
+defaults:
+  run:
+    working-directory: 06-cronwise
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, registry-url: 'https://registry.npmjs.org', cache: npm, cache-dependency-path: 06-cronwise/package-lock.json }
+      - run: npm ci
+      - name: Tag must match package.json
+        run: test "cronwise-v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - run: npm run typecheck && npm run build && npm test
+      - run: node scripts/smoke.mjs
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

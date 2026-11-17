@@ -1,0 +1,42 @@
+name: CI · 06-cronwise
+on:
+  push:
+    branches: [main]
+    paths: ['06-cronwise/**', '.github/workflows/06-ci.yml']
+  pull_request:
+    paths: ['06-cronwise/**', '.github/workflows/06-ci.yml']
+
+defaults:
+  run:
+    working-directory: 06-cronwise
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 06-cronwise/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        with: { name: dist, path: 06-cronwise/dist }
+
+  # El paquete publicado debe funcionar en TODAS las versiones de Node que declara (engines >= 18),
+  # y en Windows (diferencias de ICU / rutas).
+  smoke:
+    needs: test
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [18, 20, 22]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ matrix.node }}' }
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: 06-cronwise/dist }
+      - run: node scripts/smoke.mjs
