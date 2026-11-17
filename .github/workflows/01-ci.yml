@@ -1,5 +1,6 @@
 name: CI · 01-saas-multitenant
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ['01-saas-multitenant/**', '.github/workflows/01-ci.yml']

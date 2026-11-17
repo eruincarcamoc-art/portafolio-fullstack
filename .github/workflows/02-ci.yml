@@ -1,5 +1,6 @@
 name: CI · 02-realtime-collab
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ['02-realtime-collab/**', '.github/workflows/02-ci.yml']

@@ -1,5 +1,6 @@
 name: CI · 05-observability
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ['05-observability/**', '.github/workflows/05-ci.yml']

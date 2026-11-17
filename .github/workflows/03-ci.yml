@@ -1,5 +1,6 @@
 name: CI · 03-event-driven
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ['03-event-driven/**', '.github/workflows/03-ci.yml']
