@@ -1,0 +1,33 @@
+name: CI · 04-rag-assistant
+on:
+  push:
+    branches: [main]
+    paths: ['04-rag-assistant/**', '.github/workflows/04-ci.yml']
+  pull_request:
+    paths: ['04-rag-assistant/**', '.github/workflows/04-ci.yml']
+
+defaults:
+  run:
+    working-directory: 04-rag-assistant
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 04-rag-assistant/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+  # Puerta de calidad: si un cambio (chunking, prompt, umbrales, modelo...) empeora la recuperación o las
+  # respuestas por debajo de eval/thresholds.json, el PR falla.
+  eval-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 04-rag-assistant/package-lock.json }
+      - run: npm ci
+      - run: npm run eval:gate

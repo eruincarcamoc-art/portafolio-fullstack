@@ -1,0 +1,42 @@
+name: CI · 03-event-driven
+on:
+  push:
+    branches: [main]
+    paths: ['03-event-driven/**', '.github/workflows/03-ci.yml']
+  pull_request:
+    paths: ['03-event-driven/**', '.github/workflows/03-ci.yml']
+
+defaults:
+  run:
+    working-directory: 03-event-driven
+
+jobs:
+  test-pglite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 03-event-driven/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Mismos tests contra un Postgres real: ejercita la concurrencia de verdad (SKIP LOCKED entre workers).
+  test-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: test, POSTGRES_PASSWORD: test, POSTGRES_DB: test }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U test" --health-interval 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://test:test@localhost:5432/test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 03-event-driven/package-lock.json }
+      - run: npm ci
+      - run: npx vitest run --no-file-parallelism

@@ -1,0 +1,30 @@
+name: CI · 02-realtime-collab
+on:
+  push:
+    branches: [main]
+    paths: ['02-realtime-collab/**', '.github/workflows/02-ci.yml']
+  pull_request:
+    paths: ['02-realtime-collab/**', '.github/workflows/02-ci.yml']
+
+defaults:
+  run:
+    working-directory: 02-realtime-collab
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 02-realtime-collab/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f Dockerfile.server -t collab-server .
+      - run: docker build -f Dockerfile.web -t collab-web .
