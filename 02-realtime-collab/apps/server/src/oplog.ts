@@ -1,0 +1,94 @@
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { randomBytes } from 'node:crypto';
+import type { Op } from '@collab/core';
+
+export interface LoadedLog {
+  /** Identifica la "historia" del log. Cambia al compactar: los clientes saben que su `since` ya no vale. */
+  epoch: string;
+  ops: Op[];
+}
+
+export interface OpLog {
+  load(boardId: string): Promise<LoadedLog>;
+  append(boardId: string, ops: Op[]): Promise<void>;
+  /** Sustituye todo el log por `ops` con un epoch nuevo (escritura atómica). */
+  compact(boardId: string, ops: Op[]): Promise<string>;
+}
+
+export const newEpoch = (): string => randomBytes(6).toString('hex');
+
+export class MemoryOpLog implements OpLog {
+  readonly data = new Map<string, LoadedLog>();
+  async load(id: string) {
+    const l = this.data.get(id);
+    return l ? { epoch: l.epoch, ops: [...l.ops] } : { epoch: newEpoch(), ops: [] };
+  }
+  async append(id: string, ops: Op[]) {
+    const l = this.data.get(id) ?? { epoch: newEpoch(), ops: [] };
+    l.ops.push(...ops);
+    this.data.set(id, l);
+  }
+  async compact(id: string, ops: Op[]) {
+    const epoch = newEpoch();
+    this.data.set(id, { epoch, ops: [...ops] });
+    return epoch;
+  }
+}
+
+/**
+ * Log append-only en JSONL, un fichero por tablero.
+ *   línea 1: {"epoch":"..."}     líneas siguientes: una operación por línea.
+ * - append: `appendFile` (barato, secuencial).
+ * - compact: escribe a un temporal y `rename` => atómico, no se corrompe si el proceso muere a medias.
+ * - load: tolera una última línea truncada (caída durante un append).
+ */
+export class FileOpLog implements OpLog {
+  constructor(private readonly dir: string) {}
+
+  private file(id: string): string {
+    if (!/^[A-Za-z0-9_-]{16,64}$/.test(id)) throw new Error('invalid board id');
+    return path.join(this.dir, `${id}.jsonl`);
+  }
+
+  async load(id: string): Promise<LoadedLog> {
+    let raw: string;
+    try {
+      raw = await fs.readFile(this.file(id), 'utf8');
+    } catch (e: any) {
+      if (e.code === 'ENOENT') return { epoch: newEpoch(), ops: [] };
+      throw e;
+    }
+    const lines = raw.split('\n').filter(Boolean);
+    let epoch = newEpoch();
+    const ops: Op[] = [];
+    lines.forEach((line, i) => {
+      try {
+        const parsed = JSON.parse(line);
+        if (i === 0 && parsed.epoch) epoch = parsed.epoch;
+        else ops.push(parsed);
+      } catch {
+        /* línea truncada por una caída: se descarta */
+      }
+    });
+    return { epoch, ops };
+  }
+
+  async append(id: string, ops: Op[]): Promise<void> {
+    await fs.mkdir(this.dir, { recursive: true });
+    const file = this.file(id);
+    const exists = await fs.access(file).then(() => true, () => false);
+    const header = exists ? '' : JSON.stringify({ epoch: newEpoch() }) + '\n';
+    await fs.appendFile(file, header + ops.map((o) => JSON.stringify(o)).join('\n') + '\n');
+  }
+
+  async compact(id: string, ops: Op[]): Promise<string> {
+    await fs.mkdir(this.dir, { recursive: true });
+    const epoch = newEpoch();
+    const file = this.file(id);
+    const tmp = `${file}.${process.pid}.tmp`;
+    await fs.writeFile(tmp, JSON.stringify({ epoch }) + '\n' + ops.map((o) => JSON.stringify(o)).join('\n') + (ops.length ? '\n' : ''));
+    await fs.rename(tmp, file);
+    return epoch;
+  }
+}

@@ -1,0 +1,12 @@
+services:
+  server:
+    build: { context: ., dockerfile: Dockerfile.server }
+    environment:
+      ALLOWED_ORIGINS: http://localhost:8081
+    volumes: [boards:/data]
+  web:
+    build: { context: ., dockerfile: Dockerfile.web }
+    ports: ["8081:80"]
+    depends_on: [server]
+volumes:
+  boards:
