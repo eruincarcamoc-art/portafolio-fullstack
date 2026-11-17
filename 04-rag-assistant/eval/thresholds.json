@@ -1,0 +1,5 @@
+{
+  "retrieval": { "hit5": 0.97, "mrr": 0.95 },
+  "generation": { "correctRate": 0.82, "groundedRate": 0.99, "citationPrecision": 0.95 },
+  "refusal": { "unanswerableRefused": 0.8, "answerableRefusedWrongly": 0.1 }
+}

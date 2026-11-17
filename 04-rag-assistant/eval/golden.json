@@ -1,0 +1,587 @@
+[
+ {
+  "id": "sec-1",
+  "kind": "direct",
+  "question": "How long must passwords be?",
+  "answerable": true,
+  "docs": [
+   "security-policy.md"
+  ],
+  "facts": [
+   [
+    "14 characters"
+   ]
+  ]
+ },
+ {
+  "id": "sec-2",
+  "kind": "direct",
+  "question": "Is multi-factor authentication required for internal systems?",
+  "answerable": true,
+  "docs": [
+   "security-policy.md"
+  ],
+  "facts": [
+   [
+    "mandatory"
+   ]
+  ]
+ },
+ {
+  "id": "sec-3",
+  "kind": "paraphrase",
+  "question": "What should I do if my laptop gets stolen?",
+  "answerable": true,
+  "docs": [
+   "security-policy.md"
+  ],
+  "facts": [
+   [
+    "1 hour"
+   ]
+  ]
+ },
+ {
+  "id": "sec-4",
+  "kind": "direct",
+  "question": "How often do managers review access rights?",
+  "answerable": true,
+  "docs": [
+   "security-policy.md"
+  ],
+  "facts": [
+   [
+    "quarter"
+   ]
+  ]
+ },
+ {
+  "id": "sec-5",
+  "kind": "paraphrase",
+  "question": "Which kind of second factor do admins have to use?",
+  "answerable": true,
+  "docs": [
+   "security-policy.md"
+  ],
+  "facts": [
+   [
+    "hardware security keys",
+    "hardware security key"
+   ]
+  ]
+ },
+ {
+  "id": "pto-1",
+  "kind": "paraphrase",
+  "question": "How many vacation days do I earn each month?",
+  "answerable": true,
+  "docs": [
+   "time-off.md"
+  ],
+  "facts": [
+   [
+    "1.75"
+   ]
+  ]
+ },
+ {
+  "id": "pto-2",
+  "kind": "direct",
+  "question": "How many unused PTO days can be carried over to next year?",
+  "answerable": true,
+  "docs": [
+   "time-off.md"
+  ],
+  "facts": [
+   [
+    "5 unused days",
+    "5 "
+   ]
+  ]
+ },
+ {
+  "id": "pto-3",
+  "kind": "direct",
+  "question": "How long is parental leave?",
+  "answerable": true,
+  "docs": [
+   "time-off.md"
+  ],
+  "facts": [
+   [
+    "16 weeks"
+   ]
+  ]
+ },
+ {
+  "id": "pto-4",
+  "kind": "direct",
+  "question": "How much notice is needed for an absence longer than 3 working days?",
+  "answerable": true,
+  "docs": [
+   "time-off.md"
+  ],
+  "facts": [
+   [
+    "2 weeks"
+   ]
+  ]
+ },
+ {
+  "id": "pto-5",
+  "kind": "direct",
+  "question": "How many days of paid sick leave do I get per year?",
+  "answerable": true,
+  "docs": [
+   "time-off.md"
+  ],
+  "facts": [
+   [
+    "10 days"
+   ]
+  ]
+ },
+ {
+  "id": "exp-1",
+  "kind": "direct",
+  "question": "What is the daily meal allowance when travelling?",
+  "answerable": true,
+  "docs": [
+   "expenses.md"
+  ],
+  "facts": [
+   [
+    "$60"
+   ]
+  ]
+ },
+ {
+  "id": "exp-2",
+  "kind": "direct",
+  "question": "From what amount are receipts mandatory?",
+  "answerable": true,
+  "docs": [
+   "expenses.md"
+  ],
+  "facts": [
+   [
+    "$25"
+   ]
+  ]
+ },
+ {
+  "id": "exp-3",
+  "kind": "paraphrase",
+  "question": "When am I allowed to book business class?",
+  "answerable": true,
+  "docs": [
+   "expenses.md"
+  ],
+  "facts": [
+   [
+    "8 hours"
+   ]
+  ]
+ },
+ {
+  "id": "exp-4",
+  "kind": "paraphrase",
+  "question": "How long until I get my money back after submitting an expense claim?",
+  "answerable": true,
+  "docs": [
+   "expenses.md"
+  ],
+  "facts": [
+   [
+    "10 business days"
+   ]
+  ]
+ },
+ {
+  "id": "exp-5",
+  "kind": "direct",
+  "question": "What is the hotel limit per night in standard cities?",
+  "answerable": true,
+  "docs": [
+   "expenses.md"
+  ],
+  "facts": [
+   [
+    "$220"
+   ]
+  ]
+ },
+ {
+  "id": "inc-1",
+  "kind": "direct",
+  "question": "What counts as a SEV1 incident?",
+  "answerable": true,
+  "docs": [
+   "incident-response.md"
+  ],
+  "facts": [
+   [
+    "outage",
+    "data breach"
+   ]
+  ]
+ },
+ {
+  "id": "inc-2",
+  "kind": "direct",
+  "question": "How fast must the on-call engineer respond to a SEV1?",
+  "answerable": true,
+  "docs": [
+   "incident-response.md"
+  ],
+  "facts": [
+   [
+    "15 minutes"
+   ]
+  ]
+ },
+ {
+  "id": "inc-3",
+  "kind": "paraphrase",
+  "question": "How frequently do we refresh the public status page during an outage?",
+  "answerable": true,
+  "docs": [
+   "incident-response.md"
+  ],
+  "facts": [
+   [
+    "30 minutes"
+   ]
+  ]
+ },
+ {
+  "id": "inc-4",
+  "kind": "direct",
+  "question": "When must the postmortem be published?",
+  "answerable": true,
+  "docs": [
+   "incident-response.md"
+  ],
+  "facts": [
+   [
+    "5 business days"
+   ]
+  ]
+ },
+ {
+  "id": "inc-5",
+  "kind": "direct",
+  "question": "How long does an on-call shift last?",
+  "answerable": true,
+  "docs": [
+   "incident-response.md"
+  ],
+  "facts": [
+   [
+    "one week"
+   ]
+  ]
+ },
+ {
+  "id": "api-1",
+  "kind": "direct",
+  "question": "What is the API rate limit for the Standard plan?",
+  "answerable": true,
+  "docs": [
+   "api-reference.md"
+  ],
+  "facts": [
+   [
+    "600"
+   ]
+  ]
+ },
+ {
+  "id": "api-2",
+  "kind": "direct",
+  "question": "What HTTP status is returned when the rate limit is exceeded?",
+  "answerable": true,
+  "docs": [
+   "api-reference.md"
+  ],
+  "facts": [
+   [
+    "429"
+   ]
+  ]
+ },
+ {
+  "id": "api-3",
+  "kind": "paraphrase",
+  "question": "For how long are API tokens valid before they expire?",
+  "answerable": true,
+  "docs": [
+   "api-reference.md"
+  ],
+  "facts": [
+   [
+    "90 days"
+   ]
+  ]
+ },
+ {
+  "id": "api-4",
+  "kind": "direct",
+  "question": "What is the maximum page size for list endpoints?",
+  "answerable": true,
+  "docs": [
+   "api-reference.md"
+  ],
+  "facts": [
+   [
+    "100"
+   ]
+  ]
+ },
+ {
+  "id": "api-5",
+  "kind": "direct",
+  "question": "How many times are failed webhooks retried?",
+  "answerable": true,
+  "docs": [
+   "api-reference.md"
+  ],
+  "facts": [
+   [
+    "5 times"
+   ]
+  ]
+ },
+ {
+  "id": "prc-1",
+  "kind": "direct",
+  "question": "How much does the Team plan cost per month?",
+  "answerable": true,
+  "docs": [
+   "pricing.md"
+  ],
+  "facts": [
+   [
+    "$99"
+   ]
+  ]
+ },
+ {
+  "id": "prc-2",
+  "kind": "direct",
+  "question": "Is there a free trial and how long does it last?",
+  "answerable": true,
+  "docs": [
+   "pricing.md"
+  ],
+  "facts": [
+   [
+    "14-day",
+    "14 day"
+   ]
+  ]
+ },
+ {
+  "id": "prc-3",
+  "kind": "paraphrase",
+  "question": "How much cheaper is paying yearly instead of monthly?",
+  "answerable": true,
+  "docs": [
+   "pricing.md"
+  ],
+  "facts": [
+   [
+    "20%"
+   ]
+  ]
+ },
+ {
+  "id": "prc-4",
+  "kind": "direct",
+  "question": "How much is storage overage billed per GB?",
+  "answerable": true,
+  "docs": [
+   "pricing.md"
+  ],
+  "facts": [
+   [
+    "$0.10"
+   ]
+  ]
+ },
+ {
+  "id": "sla-1",
+  "kind": "direct",
+  "question": "What uptime does the Enterprise plan guarantee?",
+  "answerable": true,
+  "docs": [
+   "sla.md"
+  ],
+  "facts": [
+   [
+    "99.99%"
+   ]
+  ]
+ },
+ {
+  "id": "sla-2",
+  "kind": "direct",
+  "question": "How quickly does Enterprise support give a first response?",
+  "answerable": true,
+  "docs": [
+   "sla.md"
+  ],
+  "facts": [
+   [
+    "1 hour"
+   ]
+  ]
+ },
+ {
+  "id": "sla-3",
+  "kind": "direct",
+  "question": "When is the scheduled maintenance window?",
+  "answerable": true,
+  "docs": [
+   "sla.md"
+  ],
+  "facts": [
+   [
+    "Sunday",
+    "02:00"
+   ]
+  ]
+ },
+ {
+  "id": "sla-4",
+  "kind": "direct",
+  "question": "What is the recovery time objective (RTO)?",
+  "answerable": true,
+  "docs": [
+   "sla.md"
+  ],
+  "facts": [
+   [
+    "4 hours"
+   ]
+  ]
+ },
+ {
+  "id": "sla-5",
+  "kind": "paraphrase",
+  "question": "How much service credit do I get if uptime drops below 99%?",
+  "answerable": true,
+  "docs": [
+   "sla.md"
+  ],
+  "facts": [
+   [
+    "25%"
+   ]
+  ]
+ },
+ {
+  "id": "onb-1",
+  "kind": "paraphrase",
+  "question": "How much money do I get to set up my home office?",
+  "answerable": true,
+  "docs": [
+   "onboarding.md"
+  ],
+  "facts": [
+   [
+    "$1,500"
+   ]
+  ]
+ },
+ {
+  "id": "onb-2",
+  "kind": "direct",
+  "question": "How long is the probation period?",
+  "answerable": true,
+  "docs": [
+   "onboarding.md"
+  ],
+  "facts": [
+   [
+    "90 days"
+   ]
+  ]
+ },
+ {
+  "id": "onb-3",
+  "kind": "direct",
+  "question": "What is the yearly learning budget?",
+  "answerable": true,
+  "docs": [
+   "onboarding.md"
+  ],
+  "facts": [
+   [
+    "$1,200"
+   ]
+  ]
+ },
+ {
+  "id": "onb-4",
+  "kind": "direct",
+  "question": "Within how many days must benefits enrollment be completed?",
+  "answerable": true,
+  "docs": [
+   "onboarding.md"
+  ],
+  "facts": [
+   [
+    "30 days"
+   ]
+  ]
+ },
+ {
+  "id": "none-1",
+  "kind": "unanswerable",
+  "question": "What is the CEO's favorite color?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ },
+ {
+  "id": "none-2",
+  "kind": "unanswerable",
+  "question": "Does Northwind offer a student discount?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ },
+ {
+  "id": "none-3",
+  "kind": "unanswerable",
+  "question": "What is the weather forecast for Madrid tomorrow?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ },
+ {
+  "id": "none-4",
+  "kind": "unanswerable",
+  "question": "How do I reset my home router password?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ },
+ {
+  "id": "none-5",
+  "kind": "unanswerable",
+  "question": "Who won the 2022 football World Cup?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ },
+ {
+  "id": "none-6",
+  "kind": "unanswerable",
+  "question": "What is the company policy on working remotely from another country?",
+  "answerable": false,
+  "docs": [],
+  "facts": []
+ }
+]
