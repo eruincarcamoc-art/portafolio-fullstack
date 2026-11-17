@@ -1,0 +1,10 @@
+services:
+  pulse:
+    build: .
+    environment:
+      API_KEY: ${API_KEY:?set API_KEY in .env}
+      SIMULATE: ${SIMULATE:-false}     # SIMULATE=true carga tráfico de demostración y el botón de incidente
+    volumes: [pulse-data:/data]
+    ports: ["4400:4400"]
+volumes:
+  pulse-data:

@@ -1,0 +1,29 @@
+name: CI · 05-observability
+on:
+  push:
+    branches: [main]
+    paths: ['05-observability/**', '.github/workflows/05-ci.yml']
+  pull_request:
+    paths: ['05-observability/**', '.github/workflows/05-ci.yml']
+
+defaults:
+  run:
+    working-directory: 05-observability
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: 05-observability/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t pulse .

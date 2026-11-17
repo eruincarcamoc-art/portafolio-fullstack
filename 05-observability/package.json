@@ -1,0 +1,29 @@
+{
+  "name": "pulse",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "SIMULATE=true tsx watch src/server.ts",
+    "build": "esbuild src/server.ts src/bench.ts --bundle --platform=node --format=esm --target=node22 --outdir=dist --packages=external",
+    "start": "node dist/server.js",
+    "bench": "tsx src/bench.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "fastify": "^5.12.8",
+    "undici": "^8.12.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.12"
+  }
+}
